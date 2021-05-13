@@ -9,7 +9,7 @@ trigger:
 pool: AnzDemoLab
 
 variables:
-  imageName: 'wmd-bookstore'
+  imageName: 'wmd-jms-connector'
 
 steps:
 - script: sh ./wait_for_is.sh
