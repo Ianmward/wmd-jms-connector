@@ -1,0 +1,24 @@
+pipeline {
+  agent {
+    kubernetes {
+      label 'jenkins-slave'
+      defaultContainer 'jnlp'
+      envVars [
+        secretEnvVar(key: 'DOCKER_USR', secretName: 'docker-store-cred', secretKey: 'username'),
+        secretEnvVar(key: 'DOCKER_PSW', secretName: 'docker-store-cred', secretKey: 'password'),
+        secretEnvVar(key: 'NEXUS_USR', secretName: 'docker-nexus-cred', secretKey: 'username'),
+        secretEnvVar(key: 'NEXUS_PSW', secretName: 'docker-nexus-cred', secretKey: 'password')
+      ]
+      yamlFile 'KubernetesPod.yaml'
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('docker') {
+          sh 'env'
+        }
+      }
+    }
+  }
+}
