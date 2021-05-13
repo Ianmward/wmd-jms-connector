@@ -44,7 +44,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/target/Job/build/IS'
+    SourceFolder: '$(agent.DefaultWorkingDirectory)/target/Job/build/IS'
     Contents: |
       *.zip
       *.acdl
