@@ -41,12 +41,6 @@ steps:
     testRunTitle: 'Unit Tests'
     javaHomeOption: 'JDKVersion'
   displayName: 'Test'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    failTaskOnFailedTests: true
     
 - task: CopyFiles@2
   inputs:
