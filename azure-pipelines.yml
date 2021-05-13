@@ -42,6 +42,14 @@ steps:
     javaHomeOption: 'JDKVersion'
   displayName: 'Test'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/IS'
+    Contents: |
+      *.zip
+      *.acdl
+    TargetFolder: '$(System.DefaultWorkingDirectory)/image'
+    OverWrite: true
 
 - task: Docker@2
   displayName: Build an image
