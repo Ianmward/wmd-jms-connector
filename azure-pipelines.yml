@@ -9,7 +9,7 @@ trigger:
 pool: AnzDemoLab
 
 variables:
-  imageName: 'wmd-bookstore'
+  imageName: 'wmd-jms-connector'
 
 steps:
 - script: sh ./wait_for_is.sh
@@ -41,11 +41,20 @@ steps:
     testRunTitle: 'Unit Tests'
     javaHomeOption: 'JDKVersion'
   displayName: 'Test'
-
+    
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'target/Job/build/IS'
+    Contents: |
+      *.zip
+      *.acdl
+    TargetFolder: '$(System.DefaultWorkingDirectory)/image'
+    OverWrite: true
 
 - task: Docker@2
-  displayName: Build an image
+  displayName: Build an image and push to DemoLabACR
   inputs:
+    containerRegistry: 'DemoLabACR'
     repository: $(imageName)
-    command: build
-    Dockerfile: image/Dockerfile
+    command: 'buildAndPush'
+    Dockerfile: 'image/Dockerfile'
